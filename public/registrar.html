@@ -1,0 +1,91 @@
+<?php
+include_once __DIR__ . '/../config/db.php'; // Asegura que se incluya correctamente la conexión
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Capturar los datos del formulario
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $direction = trim($_POST['direction']);
+    $city = trim($_POST['city']);
+    $phone = trim($_POST['phone']);
+    $password = trim($_POST['password']);
+
+    // Validar formato de email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        mostrarMensaje("Error", "Correo electrónico no válido.", "../includes/registrar.php", "red");
+        exit();
+    }
+
+    // Validar si el correo ya está registrado
+    $sql_check = "SELECT id FROM users WHERE email = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("s", $email);
+    $stmt_check->execute();
+    $stmt_check->store_result();
+
+    if ($stmt_check->num_rows > 0) {
+        mostrarMensaje("Error", "El correo ya está registrado.", "../includes/registrar.php", "red");
+        exit();
+    }
+    $stmt_check->close();
+    
+    // Encriptar contraseña
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+    $verification_code = rand(100000, 999999); // Código de verificación
+
+    // Insertar usuario en la base de datos
+    $sql = "INSERT INTO users (name, email, direction, city, phone, password, verification_code, email_verified) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
+    
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("sssssss", $name, $email, $direction, $city, $phone, $password_hashed, $verification_code);
+
+    if ($stmt->execute()) {
+        $stmt->close();
+        mostrarMensaje("Registro Exitoso", "Revisa tu correo para verificar tu cuenta.", "dashboard.php", "blue");
+    } else {
+        mostrarMensaje("Error en el registro", "Ocurrió un problema: " . htmlspecialchars($stmt->error), "../views/registro.php", "red");
+    }
+
+    $conexion->close();
+}
+
+/**
+ * Función para mostrar mensajes estilizados
+ */
+function mostrarMensaje($titulo, $mensaje, $url, $color) {
+    echo "<div style='
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+    '>
+        <div style='
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+        '>
+            <h2 style='color: {$color};'>{$titulo}</h2>
+            <p style='font-size: 16px; color: #333;'>{$mensaje}</p>
+            <a href='{$url}' style='
+                display: inline-block;
+                margin-top: 10px;
+                padding: 10px 15px;
+                background: " . ($color == 'green' ? '#28a745' : '#dc3545') . ";
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+            '>Volver</a>
+        </div>
+    </div>";
+    exit();
+}
+?>

@@ -1,0 +1,17 @@
+<button onclick="getLocation()">Obtener Ubicación</button>
+<p id="demo"></p>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById("demo").innerHTML = 
+                "Latitud: " + position.coords.latitude + 
+                "<br>Longitud: " + position.coords.longitude;
+        });
+    } else {
+        alert("Geolocalización no soportada en este navegador.");
+    }
+}
+</script>
+

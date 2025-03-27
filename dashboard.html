@@ -1,0 +1,86 @@
+<?php
+session_start();
+
+// Verifica si el usuario ha iniciado sesión
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Inicio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            text-align: center;
+        }
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .welcome-msg {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .img-container {
+            margin-top: 20px;
+        }
+        .img-container img {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-logout {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menú de navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Sistema SEN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Administrador</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Gestión</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Informes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Parámetros</a></li>
+                <li class="nav-item"><a class="nav-link text-danger" href="logout.php">Salir</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container">
+    <h1 class="welcome-msg">Bienvenido al Panel de Administración</h1>
+    <p class="lead">Gestiona tu sistema de manera eficiente.</p>
+    
+    <div class="img-container">
+        <img src="src/assets/img/imagenenvio01.jpeg" class="img-fluid" alt="Imagen de administración">
+    </div>
+    
+    <a href="logout.php" class="btn btn-danger btn-logout">Cerrar sesión</a>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

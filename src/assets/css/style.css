@@ -1,0 +1,63 @@
+/* ===========================================
+   🌍 CONFIGURACIÓN GENERAL DEL CUERPO (BODY)
+   =========================================== */
+   body {
+    font-family: Arial, sans-serif; /* Fuente predeterminada */
+    background: url('../img/bg01.jpeg') no-repeat center center fixed; /* Imagen de fondo centrada y fija */
+    background-size: cover; /* La imagen cubrirá toda la pantalla */
+    display: flex; /* Usa flexbox para centrar contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Altura completa de la pantalla */
+    margin: 0; /* Elimina márgenes predeterminados */
+}
+
+/* ===========================================
+   🎨 ESTILOS PARA EL CONTENEDOR DEL LOGIN
+   =========================================== */
+.container {
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con transparencia */
+    padding: 50px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra sutil para efecto flotante */
+    text-align: center; /* Alineación centrada del texto */
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 400px; /* Máximo ancho para mantener estructura */
+}
+
+/* ===========================================
+   ⌨️ ESTILOS PARA LOS CAMPOS DE ENTRADA
+   =========================================== */
+input {
+    width: 100%; /* Los inputs ocupan todo el ancho disponible */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px 0; /* Separación entre los campos */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* ===========================================
+   🔘 ESTILOS PARA EL BOTÓN DE ENVÍO
+   =========================================== */
+input[type="submit"] {
+    background: #01576f; /* Color de fondo del botón */
+    color: white; /* Texto en color blanco */
+    cursor: pointer; /* Cambia el cursor a tipo "mano" */
+    border: none; /* Elimina borde predeterminado */
+    padding: 10px; /* Espaciado interno */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Efecto hover cuando el usuario pasa el mouse sobre el botón */
+input[type="submit"]:hover {
+    background: #01576f; /* Color más oscuro al pasar el mouse */
+}
+
+/* ===========================================
+   ⚠️ ESTILOS PARA MENSAJES DE ERROR
+   =========================================== */
+.error {    color: red; /* Mensajes de error en color rojo */
+    font-weight: bold; /* Texto en negrita */
+    margin-top: 10px; /* Espaciado superior */
+}
+
