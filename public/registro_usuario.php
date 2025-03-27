@@ -46,7 +46,7 @@
                     <option value="user">Usuario</option>
                     <option value="admin">Administrador</option>
                 </select>
-            </div>
+                </div>
 
             <button type="submit" class="btn">Registrarse</button>
 
